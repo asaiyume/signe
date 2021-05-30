@@ -207,20 +207,52 @@ class preprocessor:
         return array
 
     def videoToNumpy(self):
-        # WIP
-        return
+        ret, img = self.capture.read()
+        output = []
+        while True:
+            line = []
+            ret, img = self.capture.read()
+            results = self.hands.process(img)
+            if results.multi_hand_landmarks:  # if hand is detected
+
+                for handLms in results.multi_hand_landmarks:  # for each hand in the results
+
+                    for id, hand_handedness in enumerate(results.multi_handedness):
+                        handedness_dict = MessageToDict(hand_handedness)
+
+                    for id, lm in enumerate(handLms.landmark):  # location of landmarks
+                        lm_dict = MessageToDict(lm)
+                        line.append(lm_dict['x'])
+                        line.append(lm_dict['y'])
+                        line.append(lm_dict['z'])
+                        # drawing on BGR image
+                        self.mpDraw.draw_landmarks(
+                            img, handLms, self.mpHands.HAND_CONNECTIONS)
+            cv2.imshow('TEST', img)
+
+            if line != [] and len(line) == 63:
+                output.append(line)
+                print(line)
+            if cv2.waitKey(20) & 0xFF == ord('q'):
+                break
+        if output != []:
+            array = numpy.array(output)
+            print(array.shape)
+            array = array.reshape(-1, 21, 3)
+        return array
 
 
 if __name__ == '__main__':
     print("RUNNING TESTS")
     preprocessor = preprocessor()
-    if preprocessor.directory_to_csv(
-            'data/archive/asl_alphabet_test/asl_alphabet_test', 'test.csv'):
-        print("Directory to CSV SUCCESS")
+    # if preprocessor.directory_to_csv(
+    #         'data/archive/asl_alphabet_test/asl_alphabet_test', 'test.csv'):
+    #     print("Directory to CSV SUCCESS")
 
-    if preprocessor.single_image_to_numpy('data/archive/asl_alphabet_test/asl_alphabet_test/F_test.jpg') != []:
-        print("NUMPY CONVERSION SUCCESS")
+    # if preprocessor.single_image_to_numpy('data/archive/asl_alphabet_test/asl_alphabet_test/F_test.jpg') != []:
+    #     print("NUMPY CONVERSION SUCCESS")
 
-    if preprocessor.multiple_image_to_numpy(
-            'data/archive/asl_alphabet_test/asl_alphabet_test') != []:
-        print("MULTTIPLE NUMPY CONVERSION SUCCESS")
+    # if preprocessor.multiple_image_to_numpy(
+    #         'data/archive/asl_alphabet_test/asl_alphabet_test') != []:
+    #     print("MULTTIPLE NUMPY CONVERSION SUCCESS")
+    preprocessor.videoToNumpy()
