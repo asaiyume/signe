@@ -9,9 +9,8 @@ import cv2
 
 img_size = 58
 
-model = keras.models.load_model('DL Engine/training/Numbers Model 89%.h5')
-# dire = os.listdir('DL Engine/data/numbers/train')
-dire = list('0123456789')
+# model = keras.models.load_model('training/testModel.h5')
+# dire = os.listdir('data/train')
 
 
 def prediction(model, array, items_l):
@@ -22,10 +21,10 @@ def prediction(model, array, items_l):
     # else:
     #     result = ''
     currentHigh = prob[0][np.argmax(prob)]
-    if currentHigh >= 0.6:
+    if currentHigh >= 0.8:
         result = items_l[np.argmax(prob)]
     else:
-        result = 'none'
+        result = None
     return pro_df, result
 
 

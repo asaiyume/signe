@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <% if (BASE_URL === './') { %><base href="app://./" /><% } %>
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+  <script type='text/javascript' src='http://localhost:9000/eel.js'></script>
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    
+
+    <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
+    <style>
+      *{
+        user-select: none !important;
+      }
+
+      .titlebarbutton{
+        background-color: transparent !important;
+
+      }
+
+      .titlebarbutton:hover{
+        background-color: #26292e !important;
+
+      }
+      .svgthing{
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+      }
+    </style>
+  
+  
+  
+  
+  
+  </head>
+  <body>
+    <noscript>
+      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+
+    
+
+    <button style="margin: 0 auto !important; padding: 0 !important;color: #ccc !important;border: none !important;height:30px !important;width:50px !important;top: 0px !important;right: 50px !important;position: fixed !important;z-index: 10 !important;" class="titlebarbutton" onclick="window_maximize()"><svg class="svgthing" aria-hidden="false" width="12" height="12" viewBox="0 0 12 12"><rect width="9" height="9" x="1.5" y="1.5" fill="none" stroke="currentColor"></rect></svg></button>
+    <button style="margin: 0 auto !important; padding: 0 !important;color: #ccc !important;border: none !important;height:30px !important;width:50px !important;top: 0px !important;right: 100px !important;position: fixed !important;z-index: 10 !important;" class="titlebarbutton" onclick="window_minimize()"><svg class="svgthing" aria-hidden="false" width="12" height="12" viewBox="0 0 12 12"><rect fill="currentColor" width="10" height="1" x="1" y="6"></rect></svg></button>
+
+
+
+
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+    <!-- Load polyfills to support older browsers -->
+
+    <script src="//polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver" crossorigin="anonymous"></script>
+
+    <!-- Load Vue followed by BootstrapVue -->
+    <script src="//unpkg.com/vue@latest/dist/vue.min.js"></script>
+    <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+
+    <!-- Load the following for BootstrapVueIcons support -->
+    <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script>
+    <script>
+
+      const BrowserWindow = nodeRequire('electron').remote;
+
+      function window_minimize(){
+          var window = BrowserWindow.getCurrentWindow();
+          window.minimize();
+      }
+
+      function window_maximize(){
+          var window = BrowserWindow.getCurrentWindow();
+          if(!window.isMaximized()){
+              window.maximize();
+          }else{
+              window.unmaximize();
+          }
+      }
+
+      
+
+
+
+    </script>
+    
+    
+    
+  </body>
+</html>

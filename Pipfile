@@ -1,0 +1,14 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+tensorflow = "==2.4.1"
+numpy = "==1.19.5"
+opencv-python = "==4.5.1.48"
+pandas = "==1.2.2"
+[dev-packages]
+
+[requires]
+python_version = "3.8"
