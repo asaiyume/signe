@@ -1,2 +1,2 @@
 # signe
-Sign Language TTS Translator using Machine Learning
+Gamified Sign Language Application using Machine Learning
